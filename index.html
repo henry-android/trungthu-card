@@ -4,41 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thiệp Trung Thu Yêu Thương</title>
-    <!-- Google Fonts cho Typography hiện đại và lãng mạn -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- File CSS riêng biệt -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Nền bầu trời đêm trên Desktop -->
-    <div class="desktop-bg">
-        <div class="stars"></div>
-        <div class="shooting-star"></div>
-        <div class="moon"></div>
+    <!-- Nền động (Dynamic Background) -->
+    <div class="desktop-bg" id="desktopBg">
+        <div class="moon-aura">
+            <div class="moon"></div>
+        </div>
+        <!-- JS sẽ chèn sao lấp lánh, đom đóm, pháo hoa, lồng đèn bay ở đây -->
     </div>
 
-    <!-- Khung điện thoại giả lập -->
+    <!-- Khung điện thoại -->
     <div class="phone-frame">
+        
         <!-- Màn hình chờ (Intro) -->
         <div class="intro-screen" id="introScreen">
             <div class="intro-lantern">
                 <div class="lantern-body"></div>
                 <div class="tassel"></div>
             </div>
-            <button class="open-btn" id="openBtn">Mở quà Trung Thu</button>
+            <h2 class="intro-text">Một món quà nhỏ nhắn gửi đến em...</h2>
+            <button class="open-btn" id="openBtn">Chạm để mở thiệp ✨</button>
         </div>
 
-        <!-- Nhạc nền từ file music.m4a nội bộ -->
+        <!-- Nhạc nền -->
         <audio id="bgMusic" loop preload="auto">
             <source src="music.m4a" type="audio/mp4">
             <source src="music.m4a" type="audio/x-m4a">
         </audio>
 
-        <!-- Container chứa các hiệu ứng hạt sáng & trái tim bay -->
-        <div id="sparksContainer"></div>
-        <div id="heartsContainer"></div>
-
-        <!-- Thanh trạng thái giả lập (chỉ hiện trên Desktop) -->
+        <!-- Thanh trạng thái giả lập -->
         <div class="status-bar">
             <span class="time">19:30</span>
             <div class="icons">
@@ -48,10 +46,11 @@
             </div>
         </div>
 
-        <!-- Nội dung ứng dụng thiệp -->
         <div class="app-content">
+            <!-- Đom đóm trong thiệp -->
+            <div id="cardFireflies"></div>
+
             <div class="card">
-                <!-- Lồng đèn treo hai bên -->
                 <div class="lantern-container">
                     <div class="lantern left"><div class="lantern-body"></div><div class="tassel"></div></div>
                     <div class="lantern right"><div class="lantern-body"></div><div class="tassel"></div></div>
@@ -63,7 +62,6 @@
                     <div class="divider"><span>✦</span></div>
                 </div>
                 
-                <!-- Hộp thư với hiệu ứng gõ chữ -->
                 <div class="message-box">
                     <span class="corner top-left"></span>
                     <span class="corner top-right"></span>
@@ -72,8 +70,8 @@
                     <p id="typewriter-text"></p><span class="typewriter-cursor"></span>
                 </div>
 
-                <!-- Nút tương tác -->
-                <button class="hug-btn" id="hugBtn">Gửi ngàn cái ôm 💖</button>
+                <!-- Nút Tương Tác Cấp Cao -->
+                <button class="hug-btn" id="hugBtn">Yêu em nhiều 💖</button>
 
                 <div class="card-footer">
                     <div class="glowing-moon"></div>
@@ -82,7 +80,15 @@
         </div>
     </div>
 
-    <!-- File JavaScript riêng biệt -->
+    <!-- Custom Popup Lãng Mạn -->
+    <div class="custom-popup" id="customPopup">
+        <div class="popup-content">
+            <h3>Lời hứa ngọt ngào 💖</h3>
+            <p>Bầu trời đêm nay có ngàn vì sao, nhưng trong lòng anh chỉ có duy nhất một mình em! 🥰</p>
+            <button id="closePopup">Nhận lời yêu</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
