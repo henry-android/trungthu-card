@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Trung Thu Yêu Thương</title>
+    <!-- Google Fonts cho Typography hiện đại và lãng mạn -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Color Palette */
+            --primary-red: #7C0A02; 
+            --dark-red: #4A0404;    
+            --royal-gold: #FFD700;  
+            --soft-gold: #F4C430;
+            --moonlight: #FFF9E6;   
+            --bg-desktop: #040814;  
+            
+            /* Typography */
+            --font-heading: 'Dancing Script', cursive;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Quicksand', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-desktop);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden; 
+            font-family: var(--font-serif);
+            color: var(--moonlight);
+            position: relative;
+        }
+
+        /* 1. DESKTOP BACKGROUND */
+        .desktop-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        .stars {
+            width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #ddd, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 160px 120px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: twinkle 4s infinite alternate;
+        }
+        .moon {
+            position: absolute; top: 10%; right: 15%; width: 120px; height: 120px;
+            background: radial-gradient(circle at 30% 30%, #FFF9E6, #FFD700);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.4), 0 0 100px rgba(255, 215, 0, 0.2);
+        }
+        .shooting-star {
+            position: absolute; top: 20%; left: 30%; width: 100px; height: 2px;
+            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
+            transform: rotate(-45deg);
+            animation: shoot 5s infinite; opacity: 0;
+        }
+
+        @keyframes twinkle { 0% { opacity: 0.6; } 100% { opacity: 1; } }
+        @keyframes shoot {
+            0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 1; }
+            15% { transform: translateX(-300px) translateY(300px) rotate(-45deg); opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        /* 2. SMARTPHONE FRAME */
+        .phone-frame {
+            position: relative; width: 375px; height: 812px;
+            background-color: var(--primary-red);
+            border-radius: 45px; border: 12px solid #1c1c1c;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 0 0 2px #333, inset 0 0 20px rgba(255, 255, 255, 0.1);
+            z-index: 10; overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s ease;
+        }
+        .phone-frame::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 150px; height: 25px; background-color: #1c1c1c;
+            border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; z-index: 30;
+        }
+
+        /* 3. STATUS BAR */
+        .status-bar {
+            height: 40px; background: transparent; display: flex; justify-content: space-between; align-items: center;
+            padding: 0 25px; font-family: sans-serif; font-size: 14px; font-weight: 600; color: var(--moonlight);
+            z-index: 20; position: absolute; top: 0; left: 0; width: 100%;
+        }
+        .status-bar .icons { display: flex; gap: 6px; align-items: center; }
+
+        /* 4. APP CONTENT */
+        .app-content {
+            flex: 1; background: radial-gradient(circle at top center, var(--primary-red) 0%, var(--dark-red) 100%);
+            position: relative; overflow-y: auto; overflow-x: hidden;
+        }
+        .app-content::-webkit-scrollbar { width: 4px; }
+        .app-content::-webkit-scrollbar-thumb { background: var(--royal-gold); border-radius: 4px; }
+
+        .card { padding: 3rem 1.5rem; min-height: 100%; display: flex; flex-direction: column; align-items: center; position: relative; }
+
+        /* Lồng Đèn */
+        .lantern-container { position: absolute; top: 0; width: 100%; display: flex; justify-content: space-between; padding: 0 15px; }
+        .lantern { position: relative; width: 45px; animation: swing 3.5s ease-in-out infinite alternate; transform-origin: top center; }
+        .lantern.right { animation-delay: 1s; }
+        .lantern-body {
+            height: 60px; background: linear-gradient(135deg, #FF4500, #D10000); border-radius: 20px;
+            box-shadow: 0 0 25px rgba(255, 69, 0, 0.6); border: 2px solid var(--royal-gold); position: relative;
+        }
+        .lantern::before {
+            content: ''; position: absolute; top: -40px; left: 50%; transform: translateX(-50%);
+            width: 2px; height: 40px; background: var(--royal-gold);
+        }
+        .tassel {
+            position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); width: 12px; height: 25px;
+            background: linear-gradient(to bottom, var(--royal-gold), #B8860B);
+            clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+        }
+        @keyframes swing { 0% { transform: rotate(8deg); } 100% { transform: rotate(-8deg); } }
+
+        /* Header Text */
+        .card-header { text-align: center; margin-top: 3.5rem; margin-bottom: 2rem; position: relative; z-index: 2; }
+        .title {
+            font-family: var(--font-heading); color: var(--royal-gold); font-size: 3.8rem; line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 15px rgba(255, 215, 0, 0.4);
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+        .subtitle { font-family: var(--font-sans); color: var(--moonlight); font-size: 1.1rem; font-weight: 500; margin-top: 10px; text-transform: uppercase; }
+        .divider { margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .divider::before, .divider::after { content: ''; height: 1px; width: 60px; background: linear-gradient(to right, transparent, var(--royal-gold), transparent); }
+        .divider span { color: var(--royal-gold); font-size: 1.2rem; }
+        @keyframes textGlow { from { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 10px rgba(255, 215, 0, 0.3); } to { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 25px rgba(255, 215, 0, 0.7); } }
+
+        /* Lời chúc (Message Box) & Typewriter */
+        .message-box {
+            background: rgba(20, 0, 0, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3); padding: 2.5rem 1.5rem; width: 100%; max-width: 320px;
+            position: relative; z-index: 2; text-align: center; transition: transform 0.4s ease, box-shadow 0.4s ease;
+            min-height: 250px;
+        }
+        .message-box p { font-size: 1.1rem; line-height: 1.8; color: #FDF5E6; display: inline; }
+        .typewriter-cursor {
+            display: inline-block; width: 3px; height: 1.1rem; background-color: var(--royal-gold);
+            vertical-align: middle; margin-left: 2px; animation: blink 0.7s infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .corner { position: absolute; width: 20px; height: 20px; border: 2px solid var(--royal-gold); }
+        .top-left { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .top-right { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+        .bottom-left { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+        .bottom-right { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+        /* Nút Hug & Hiệu ứng tim bay */
+        .hug-btn {
+            margin-top: 2rem; padding: 12px 30px; background: #ff4d6d; color: white;
+            font-family: var(--font-sans); font-size: 1.1rem; font-weight: 600;
+            border: 2px solid #ffb3c1; border-radius: 25px; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); transition: all 0.3s; z-index: 10;
+            display: none; /* Ẩn cho đến khi type xong */
+            animation: pulseHug 2s infinite;
+        }
+        .hug-btn:hover { transform: scale(1.05); background: #ff758f; }
+        @keyframes pulseHug { 0% { box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 77, 109, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 77, 109, 0); } }
+
+        #heartsContainer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 100; overflow: hidden;
+        }
+        .flying-heart {
+            position: absolute; bottom: -20px; color: #ff4d6d;
+            animation: floatHeart 4s ease-in forwards; text-shadow: 0 0 10px rgba(255, 77, 109, 0.8);
+        }
+        @keyframes floatHeart {
+            0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-800px) scale(1.5) rotate(360deg); opacity: 0; }
+        }
+
+        /* Footer */
+        .card-footer { margin-top: auto; padding-top: 3rem; position: relative; width: 100%; display: flex; justify-content: center; }
+        .glowing-moon {
+            width: 100px; height: 100px; background: radial-gradient(circle at 30% 30%, #FFF, var(--royal-gold));
+            border-radius: 50%; box-shadow: 0 0 30px var(--royal-gold), inset -10px -10px 20px rgba(0,0,0,0.2);
+            position: relative; z-index: 1; margin-bottom: 20px;
+        }
+
+        /* 5. INTRO SCREEN & SPARKS */
+        .intro-screen {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #7C0A02 0%, #300000 100%);
+            z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease-in-out;
+        }
+        .intro-lantern { position: relative; width: 80px; margin-bottom: 50px; animation: floatLantern 3s ease-in-out infinite alternate; }
+        .intro-lantern .lantern-body { height: 100px; background: linear-gradient(135deg, #FF4500, #D10000); border-radius: 30px; box-shadow: 0 0 40px rgba(255, 69, 0, 0.8); border: 3px solid var(--royal-gold); }
+        .intro-lantern::before { content: ''; position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 2px; height: 50px; background: var(--royal-gold); }
+        .intro-lantern .tassel { position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%); width: 15px; height: 40px; background: linear-gradient(to bottom, var(--royal-gold), #B8860B); clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%); }
+        @keyframes floatLantern { 0% { transform: translateY(0); } 100% { transform: translateY(-20px); } }
+        
+        .open-btn {
+            padding: 15px 40px; font-family: var(--font-sans); font-size: 1.2rem; font-weight: 600; color: #4A0404;
+            background: linear-gradient(135deg, #FFD700, #F4C430); border: none; border-radius: 30px; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4); transition: all 0.3s ease; animation: pulseBtn 2s infinite; z-index: 101;
+        }
+        .open-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6); }
+        @keyframes pulseBtn { 0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); } }
+
+        #sparksContainer { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 15; overflow: hidden; }
+        .spark { position: absolute; bottom: -10px; background: var(--royal-gold); border-radius: 50%; box-shadow: 0 0 10px var(--royal-gold), 0 0 20px #FFF; opacity: 0; animation: floatUp linear forwards; }
+        @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 0.8; } 100% { transform: translateY(-800px) scale(0.5); opacity: 0; } }
+
+        /* 6. RESPONSIVE MOBILE */
+        @media screen and (max-width: 768px) {
+            .desktop-bg { display: none; }
+            .phone-frame { width: 100vw; height: 100vh; border-radius: 0; border: none; box-shadow: none; }
+            .phone-frame::before, .status-bar { display: none; }
+            .app-content { padding-top: 0; }
+            .card { padding: 2rem 1rem; justify-content: center; }
+            .title { font-size: 3.2rem; }
+            .message-box { padding: 2rem 1.2rem; min-height: 280px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="desktop-bg">
+        <div class="stars"></div>
+        <div class="shooting-star"></div>
+        <div class="moon"></div>
+    </div>
+
+    <div class="phone-frame">
+        <div class="intro-screen" id="introScreen">
+            <div class="intro-lantern">
+                <div class="lantern-body"></div>
+                <div class="tassel"></div>
+            </div>
+            <button class="open-btn" id="openBtn">Mở quà Trung Thu</button>
+        </div>
+
+        <audio id="bgMusic" loop preload="auto">
+            <source src="https://cdn.pixabay.com/download/audio/2021/11/24/audio_333e1ee10c.mp3?filename=piano-moment-9835.mp3" type="audio/mpeg">
+        </audio>
+
+        <div id="sparksContainer"></div>
+        <div id="heartsContainer"></div>
+
+        <div class="status-bar">
+            <span class="time">19:30</span>
+            <div class="icons">
+                <span class="signal"><svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor"><rect y="6" width="3" height="4" rx="1"/><rect x="5" y="3" width="3" height="7" rx="1"/><rect x="10" width="3" height="10" rx="1"/></svg></span>
+                <span class="wifi"><svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor"><path d="M7 10C8.10457 10 9 9.10457 9 8C9 6.89543 8.10457 6 7 6C5.89543 6 5 6.89543 5 8C5 9.10457 5.89543 10 7 10Z"/><path d="M2.05025 4.05025C4.78392 1.31658 9.21608 1.31658 11.9497 4.05025L13.364 2.63604C9.84924 -0.87868 4.15076 -0.87868 0.636039 2.63604L2.05025 4.05025Z"/></svg></span>
+                <span class="battery"><svg width="20" height="10" viewBox="0 0 20 10" fill="currentColor"><rect width="17" height="10" rx="2"/><rect x="1" y="1" width="15" height="8" rx="1" fill="white"/><path d="M18 3H19C19.5523 3 20 3.44772 20 4V6C20 6.55228 19.5523 7 19 7H18V3Z"/></svg></span>
+            </div>
+        </div>
+
+        <div class="app-content">
+            <div class="card">
+                <div class="lantern-container">
+                    <div class="lantern left"><div class="lantern-body"></div><div class="tassel"></div></div>
+                    <div class="lantern right"><div class="lantern-body"></div><div class="tassel"></div></div>
+                </div>
+
+                <div class="card-header">
+                    <h1 class="title">Trung Thu<br>Viên Mãn</h1>
+                    <p class="subtitle">Dành tặng người anh yêu</p>
+                    <div class="divider"><span>✦</span></div>
+                </div>
+                
+                <div class="message-box">
+                    <span class="corner top-left"></span>
+                    <span class="corner top-right"></span>
+                    <span class="corner bottom-left"></span>
+                    <span class="corner bottom-right"></span>
+                    <p id="typewriter-text"></p><span class="typewriter-cursor"></span>
+                </div>
+
+                <button class="hug-btn" id="hugBtn">Gửi ngàn cái ôm 💖</button>
+
+                <div class="card-footer">
+                    <div class="glowing-moon"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const introScreen = document.getElementById('introScreen');
+        const openBtn = document.getElementById('openBtn');
+        const bgMusic = document.getElementById('bgMusic');
+        const typeText = document.getElementById('typewriter-text');
+        const hugBtn = document.getElementById('hugBtn');
+        const cursor = document.querySelector('.typewriter-cursor');
+        
+        const message = "Dưới ánh trăng rằm rực rỡ, lồng đèn lung linh thắp sáng khắp phố phường. Nhưng với anh, ánh sáng dịu dàng và ấm áp nhất lại chính là nụ cười của em. Cảm ơn em đã đến và nắm tay anh cùng bước qua những mùa trăng yêu thương. Chúc bé yêu của anh một đêm Trung Thu thật ngọt ngào, hạnh phúc. Nhớ em và yêu em vô vàn! 🌕🏮❤️";
+        
+        let i = 0;
+        const typingSpeed = 60; // tốc độ gõ chữ
+
+        // Hàm gõ chữ từ từ
+        function typeWriter() {
+            if (i < message.length) {
+                typeText.innerHTML += message.charAt(i);
+                i++;
+                setTimeout(typeWriter, typingSpeed);
+            } else {
+                cursor.style.display = 'none'; // Ẩn con trỏ nhấp nháy khi gõ xong
+                hugBtn.style.display = 'block'; // Hiện nút ôm
+            }
+        }
+
+        // Logic khi bấm mở thiệp
+        openBtn.addEventListener('click', () => {
+            introScreen.style.opacity = '0';
+            setTimeout(() => {
+                introScreen.style.display = 'none';
+                setTimeout(typeWriter, 500); // Đợi nửa giây rồi mới bắt đầu gõ
+            }, 800); 
+            
+            bgMusic.play().catch(error => {
+                console.log("Trình duyệt chặn autoplay:", error);
+            });
+            
+            createSparks();
+        });
+
+        // Hàm tạo hạt sáng bay
+        function createSparks() {
+            const container = document.getElementById('sparksContainer');
+            setInterval(() => {
+                const spark = document.createElement('div');
+                spark.classList.add('spark');
+                
+                const size = Math.random() * 4 + 2;
+                spark.style.width = size + 'px';
+                spark.style.height = size + 'px';
+                spark.style.left = Math.random() * 100 + '%';
+                spark.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                
+                container.appendChild(spark);
+                setTimeout(() => spark.remove(), 6000);
+            }, 300);
+        }
+
+        // Logic Nút Gửi ngàn cái ôm
+        hugBtn.addEventListener('click', () => {
+            // Hiệu ứng bong bóng trái tim bay lên
+            for(let j = 0; j < 35; j++) {
+                setTimeout(createHeart, j * 80);
+            }
+            
+            // Hiện popup lãng mạn sau khi thả tim
+            setTimeout(() => {
+                alert("Anh đã nhận được ngàn cái ôm của em rồi nhé! Yêu em bé nhất trên đời! 🥰");
+            }, 2000);
+        });
+
+        function createHeart() {
+            const container = document.getElementById('heartsContainer');
+            const heart = document.createElement('div');
+            heart.classList.add('flying-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 90 + 5 + '%';
+            
+            const size = Math.random() * 20 + 15;
+            heart.style.fontSize = size + 'px';
+            heart.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+            
+            container.appendChild(heart);
+            setTimeout(() => heart.remove(), 4500);
+        }
+
+        // Đồng hồ
+        function updateTime() {
+            const now = new Date();
+            const timeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+            document.querySelector('.time').textContent = timeStr;
+        }
+        setInterval(updateTime, 60000);
+        updateTime();
+    </script>
+</body>
+</html>
